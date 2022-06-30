@@ -20,7 +20,7 @@ Login.init(
     },
     user_id: {
       type: DataTypes.UUID,
-      allowNull: true
+      allowNull: false
     },
     is_verify: {
       type: DataTypes.BOOLEAN,

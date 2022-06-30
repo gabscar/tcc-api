@@ -1,7 +1,7 @@
 {
-  "name": "project-structure-api",
+  "name": "implat-api",
   "version": "1.0.0",
-  "description": "Project structure for API",
+  "description": "Dental Inplant deection API",
   "main": "dist/index.js",
   "scripts": {
     "prepare": "husky install",
@@ -13,7 +13,8 @@
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc --write .",
     "test": "mocha --check-leaks -r dotenv/config -r ts-node/register '**/**/*.spec.ts'",
-    "coverage": "nyc npm run test"
+    "coverage": "nyc npm run test",
+    "sql": "sequelize-cli"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.5",
+    "sequelize-cli": "6.2.0",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
     "winston": "^3.3.3"
