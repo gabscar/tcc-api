@@ -12,5 +12,6 @@
     "typeRoots": ["node_modules/@types", "./src/@types/index.d.ts"]
   },
   "include": ["src"],
+  "assets": ["src/images/*", "src/pubic/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
