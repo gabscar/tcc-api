@@ -2,15 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es2017",
-    "outDir": "./dist",
+    "target": "es2019",
+    "rootDir": "src",
+    "outDir": "dist",
+    "sourceMap": true,
     "esModuleInterop": false,
     "strict": true,
-    "sourceMap": true,
-
-    "baseUrl": "."
-    // "typeRoots": ["node_modules/@types", "./src/@types/index.d.ts"]
+    "baseUrl": "src",
+    "typeRoots": ["node_modules/@types", "./src/@types/index.d.ts"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

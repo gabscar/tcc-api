@@ -11,11 +11,12 @@
  *          description: Returns without error.
  */
 import { Router, Request, Response } from 'express';
-
+const { dirname } = require('path');
+const appDir = dirname(require.main?.filename);
 const route: Router = Router();
-
 route.get('/', (req: Request, res: Response) => {
-  res.sendStatus(200);
+  console.log(appDir);
+  res.sendFile(appDir + '/public/index.html');
 });
 
 export default route;

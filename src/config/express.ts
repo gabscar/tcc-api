@@ -19,6 +19,7 @@ export default function expressConfig(app: Application): Application {
   app.use(cors(corsOption));
   app.use(compression());
   app.use(morganMiddleware);
+
   app.use(`/${API}`, routes);
   app.use(`/${API}/docs`, swaggerUi.serve, swaggerUi.setup(specs));
 

@@ -1,11 +1,12 @@
 {
-  "name": "implat-api",
+  "name": "implant-api",
   "version": "1.0.0",
-  "description": "Dental Inplant deection API",
-  "main": "dist/index.js",
+  "description": "Dental Inplant detection API",
+  "main": "src/index.ts",
   "scripts": {
     "prepare": "husky install",
     "start": "node -r dotenv/config .",
+    "start-dev": "nodemon -r dotenv/config src/index.ts",
     "start-watch": "nodemon --delay 5000ms --exec npm run start",
     "build": "npm run test && tsc",
     "build-only": "tsc",
@@ -15,6 +16,9 @@
     "test": "mocha --check-leaks -r dotenv/config -r ts-node/register '**/**/*.spec.ts'",
     "coverage": "nyc npm run test",
     "sql": "sequelize-cli"
+  },
+  "compilerOptions": {
+    "esModuleInterop": true
   },
   "repository": {
     "type": "git",
@@ -35,6 +39,7 @@
   "homepage": "https://github.com/arifintahu/project-structure-api#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -43,6 +48,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
+    "python-shell": "^3.0.1",
     "sequelize": "^6.6.5",
     "sequelize-cli": "6.2.0",
     "swagger-jsdoc": "^6.1.0",
