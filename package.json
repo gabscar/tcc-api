@@ -17,6 +17,10 @@
     "coverage": "nyc npm run test",
     "sql": "sequelize-cli"
   },
+  "postinstall": "npm build",
+  "engines": {
+    "node": "14"
+  },
   "compilerOptions": {
     "esModuleInterop": true
   },
