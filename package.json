@@ -8,7 +8,7 @@
     "start": "node -r dotenv/config .",
     "start-dev": "nodemon -r dotenv/config src/index.ts",
     "start-watch": "nodemon --delay 5000ms --exec npm run start",
-    "build": " tsc  && cp -r ./src/images ./dist && cp -r ./src/public ./dist",
+    "build": " tsc && npx sql db:create  && npx sql db:migrate && cp -r ./src/images ./dist && cp -r ./src/public ./dist",
     "build-only": "tsc  && cp -r ./src/images ./dist && cp -r ./src/public ./dist",
     "build-watch": "tsc -w",
     "lint": "eslint . --ext .ts",
