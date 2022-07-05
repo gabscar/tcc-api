@@ -101,7 +101,7 @@
         let images = [];
         let index = 0;
         fetch(
-          `https://stunning-kings-canyon-33078.herokuapp.com//api/v1/image/images`
+          `https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/images`
         )
           .then((response) => {
             return response.json();
@@ -110,7 +110,7 @@
             images = data;
             original.setAttribute(
               'src',
-              'https://stunning-kings-canyon-33078.herokuapp.com//api/v1/image/images/' +
+              'https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/images/' +
                 images[0]
             );
           });
@@ -119,7 +119,7 @@
         detectButton.addEventListener('click', (e) => {
           detected.setAttribute(
             'src',
-            'https://stunning-kings-canyon-33078.herokuapp.com//api/v1/image/detect/' +
+            'https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/detect/' +
               images[index]
           );
         });
@@ -129,7 +129,7 @@
           index += 1;
           original.setAttribute(
             'src',
-            'https://stunning-kings-canyon-33078.herokuapp.com//api/v1/image/images/' +
+            'https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/images/' +
               images[index]
           );
           detected.setAttribute('src', '');
