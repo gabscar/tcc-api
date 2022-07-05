@@ -1,1 +1,1 @@
-web: node -r dotenv/config .
+web: node -r dotenv/config . && python3 dist/api/services/yolo_object_detection yolo.py
