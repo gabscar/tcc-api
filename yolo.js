@@ -1,6 +1,6 @@
 const child_process = require('child_process');
 const { dirname } = require('path');
-const appDir = dirname(require.main?.filename);
+const appDir = dirname(require.main.filename);
 const script = appDir + '/api/services/yolo_object_detection/yolo.py';
 
 const yolo = (image) => {
