@@ -18,7 +18,7 @@
     "sql": "sequelize-cli"
   },
   "engines": {
-    "node": "14"
+    "node": "12"
   },
   "compilerOptions": {
     "esModuleInterop": true
