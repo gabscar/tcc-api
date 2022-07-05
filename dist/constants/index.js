@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JWT_SECRET = exports.API = exports.PORT = void 0;
-const PORT = parseInt(process.env.PORT, 10) || 3000;
+const PORT = process.env.PORT || 3000;
 exports.PORT = PORT;
 const API = process.env.API || 'api/v1';
 exports.API = API;
