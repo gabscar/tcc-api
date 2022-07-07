@@ -8,10 +8,10 @@ input_path = sys.argv[1]
 output_path = sys.argv[2]
 cwd = os.path.dirname(os.path.realpath(__file__)) + "/"
 
-WEIGHTS_FILE = "./dist/api/services/yolo_object_detection/" + "yolov3.weights"
-CONFIG_FILE = "./dist/api/services/yolo_object_detection/" + "yolov3.cfg"
-CLASSES_FILE = "./dist/api/services/yolo_object_detection/" + "coco.names"
-
+WEIGHTS_FILE = cwd + "yolov3.weights"
+CONFIG_FILE = cwd + "yolov3.cfg"
+CLASSES_FILE = cwd + "coco.names"
+print(WEIGHTS_FILE)
 net = cv2.dnn.readNet(WEIGHTS_FILE,CONFIG_FILE)
 print(net)
 classes = []
