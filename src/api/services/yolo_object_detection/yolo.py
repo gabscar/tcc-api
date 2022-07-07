@@ -6,7 +6,7 @@ import os
 # Args
 input_path = sys.argv[1]
 output_path = sys.argv[2]
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 cwd = os.path.dirname(os.path.realpath(__file__)) + "/"
 WEIGHTS_FILE = os.path.join(BASE_DIR, 'yolov3.weights') 
