@@ -20,7 +20,7 @@ async def download():
     # and wait for it's result:
     await loop.run_in_executor(_executor, sync_blocking)
 
-if os.path.isfile("/yolov3.weights"):
+if os.path.isfile("yolov3.weights"):
     print('baixado')
 else:
     loop = asyncio.get_event_loop()
