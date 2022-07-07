@@ -6,12 +6,11 @@ import os
 # Args
 input_path = sys.argv[1]
 output_path = sys.argv[2]
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
 cwd = os.path.dirname(os.path.realpath(__file__)) + "/"
-WEIGHTS_FILE = os.path.join(BASE_DIR, 'yolov3.weights') 
-CONFIG_FILE = os.path.join(BASE_DIR, 'yolov3.cfg') 
-CLASSES_FILE = os.path.join(BASE_DIR, 'coco.names') 
+
+WEIGHTS_FILE = cwd + "yolov3.weights"
+CONFIG_FILE = cwd + "yolov3.cfg"
+CLASSES_FILE = cwd + "coco.names"
 
 net = cv2.dnn.readNet(WEIGHTS_FILE,CONFIG_FILE)
 print(net)
