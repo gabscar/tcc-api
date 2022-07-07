@@ -13,6 +13,8 @@ CONFIG_FILE = cwd + "yolov3.cfg"
 CLASSES_FILE = cwd + "coco.names"
 print(WEIGHTS_FILE)
 net = cv2.dnn.readNet(WEIGHTS_FILE,CONFIG_FILE)
+
+sys.stdout.flush()
 print(net)
 classes = []
 with open(CLASSES_FILE,"r") as f:
