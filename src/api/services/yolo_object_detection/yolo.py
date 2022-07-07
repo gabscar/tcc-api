@@ -7,7 +7,7 @@ import os
 input_path = sys.argv[1]
 output_path = sys.argv[2]
 print (os.path.realpath(__file__))
-cwd = os.path.dirname(os.path.dirname(__file__)) + "/"
+cwd = os.path.dirname(os.path.realpath(__file__)) + "/"
 WEIGHTS_FILE = cwd + "yolov3.weights"
 CONFIG_FILE = cwd + "yolov3.cfg"
 CLASSES_FILE = cwd + "coco.names"
