@@ -2,13 +2,32 @@ import cv2
 import numpy as np
 import sys
 import os
-
+import urllib.request
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+_executor = ThreadPoolExecutor(1)
 # Args
 input_path = sys.argv[1]
 output_path = sys.argv[2]
 cwd = os.path.dirname(os.path.realpath(__file__)) + "/"
 
-WEIGHTS_FILE = cwd + "yolov3.weights"
+def sync_blocking():
+    urllib.request.urlretrieve("https://github.com/gabscar/tcc-api/raw/main/src/api/services/yolo_object_detection/yolov3.weights", "yolov3.weights")
+
+
+async def download():
+    # run blocking function in another thread,
+    # and wait for it's result:
+    await loop.run_in_executor(_executor, sync_blocking)
+
+if os.path.isfile("/yolov3.weights"):
+    print('baixado')
+else:
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(download())
+    loop.close()
+# https://github.com/gabscar/tcc-api/raw/main/src/api/services/yolo_object_detection/yolov3.weights
+WEIGHTS_FILE = "yolov3.weights"
 CONFIG_FILE = cwd + "yolov3.cfg"
 CLASSES_FILE = cwd + "coco.names"
 print(WEIGHTS_FILE)
