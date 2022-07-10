@@ -4,11 +4,12 @@
       body,
       html {
         margin: 0;
-
         width: 100vw;
-        overflow: hidden;
+        height: 100vh;
       }
-
+      * {
+        box-sizing: border-box;
+      }
       button,
       h1,
       h2,
@@ -30,25 +31,17 @@
       }
       #images {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        width: 100vw;
-        padding-top: 1rem;
-      }
-
-      #left {
-        width: 50%;
-      }
-      #right {
-        width: 50%;
       }
 
       #original-image {
-        float: right;
+        width: 1600px;
       }
 
       #detected-image {
-        float: left;
+        width: 2000px;
       }
 
       #controls {
@@ -91,6 +84,7 @@
       </div>
       <div id="right">
         <img id="detected-image" />
+        <div id="myresult" class="img-zoom-result"></div>
       </div>
     </div>
 
@@ -100,27 +94,21 @@
         let detected = document.getElementById('detected-image');
         let images = [];
         let index = 0;
-        fetch(
-          `https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/images`
-        )
+        let getUrl = window.location;
+        fetch(`${getUrl}image/images`)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
             images = data;
-            original.setAttribute(
-              'src',
-              'https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/images/' +
-                images[0]
-            );
+            original.setAttribute('src', `${getUrl}image/images/` + images[0]);
           });
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
           detected.setAttribute(
             'src',
-            'https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/detect/' +
-              images[index]
+            `${getUrl}image/detect/` + images[index]
           );
         });
 
@@ -129,8 +117,7 @@
           index += 1;
           original.setAttribute(
             'src',
-            'https://stunning-kings-canyon-33078.herokuapp.com/api/v1/image/images/' +
-              images[index]
+            `${getUrl}image/images/` + images[index]
           );
           detected.setAttribute('src', '');
         });
