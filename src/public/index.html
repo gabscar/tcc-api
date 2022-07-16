@@ -95,20 +95,20 @@
         let images = [];
         let index = 0;
         let getUrl = window.location;
-        fetch(`${getUrl}image/images`)
+        fetch(`${getUrl}/image/images`)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
             images = data;
-            original.setAttribute('src', `${getUrl}image/images/` + images[0]);
+            original.setAttribute('src', `${getUrl}/image/images/` + images[0]);
           });
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
           detected.setAttribute(
             'src',
-            `${getUrl}image/detect/` + images[index]
+            `${getUrl}/image/detect/` + images[index]
           );
         });
 
@@ -117,7 +117,7 @@
           index += 1;
           original.setAttribute(
             'src',
-            `${getUrl}image/images/` + images[index]
+            `${getUrl}/image/images/` + images[index]
           );
           detected.setAttribute('src', '');
         });
