@@ -1,10 +1,13 @@
+import { detectionController } from '../../controllers';
 import { Router } from 'express';
 const fs = require('fs');
 const yolo = require('../../../../yolo.js');
 const PATH_TO_ORIGINAL_IMAGES = '/images/original_images';
 const route: Router = Router();
 const { dirname } = require('path');
+
 const appDir = dirname(require.main?.filename);
+
 route.get('/images', (req, res) => {
   console.log(appDir + '/images/original_images');
   const file = fs.readdir(
@@ -24,12 +27,13 @@ route.get('/images/:image', (req, res) => {
 });
 
 route.get('/detect/:image', async (req, res) => {
-  try {
-    const pathToDetectedImage = await yolo(req.params.image);
-    res.sendFile(pathToDetectedImage);
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  // const pathToDetectedImage = await yolo(req.params.image);
+  detectionController.detection(req, res);
+  //   res.sendFile(pathToDetectedImage);
+  // } catch (error) {
+  //   console.log(error);
+  // }
 });
 
 export default route;
