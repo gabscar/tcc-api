@@ -12,7 +12,7 @@ route.get('/images', (req, res) => {
   console.log(appDir + '/images/original_images');
   const file = fs.readdir(
     appDir + '/images/original_images',
-    (err: any, images: File) => {
+    (err: any, images: Buffer) => {
       if (err) console.log(err);
       console.log(images);
 
@@ -27,13 +27,7 @@ route.get('/images/:image', (req, res) => {
 });
 
 route.get('/detect/:image', async (req, res) => {
-  // try {
-  // const pathToDetectedImage = await yolo(req.params.image);
   detectionController.detection(req, res);
-  //   res.sendFile(pathToDetectedImage);
-  // } catch (error) {
-  //   console.log(error);
-  // }
 });
 
 export default route;

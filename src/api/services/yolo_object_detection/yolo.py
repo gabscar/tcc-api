@@ -91,6 +91,8 @@ def main():
                 0.5, color, 2)
     cv2.imwrite(output_path,img)
 
+    print(img)
+
     
 
 main()

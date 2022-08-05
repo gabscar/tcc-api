@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+const request = require('supertest');
 import { createServer } from '../../../src/server';
 import { API } from '../../../src/constants';
 import { expect } from 'chai';
@@ -10,6 +10,15 @@ const email = 'test1@gmail.com';
 const password = '12345';
 
 describe('Auth API checks', () => {
+  let server: any;
+
+  before((done) => {
+    server = app.listen(5000, done);
+  });
+  afterEach(function (done) {
+    server.close();
+    done();
+  });
   it('Check register user', (done) => {
     request(app)
       .post(`/${API}/user/register`)
@@ -29,7 +38,7 @@ describe('Auth API checks', () => {
         password: password
       })
       .expect(200)
-      .then((response) => {
+      .then((response: any) => {
         token = response.body.payload.token;
         done();
       });
@@ -43,7 +52,7 @@ describe('Auth API checks', () => {
       .get(`/${API}/auth`)
       .set('x-authorization', token)
       .expect(200)
-      .then((response) => {
+      .then((response: any) => {
         id = response.body.payload.id;
         done();
       });
