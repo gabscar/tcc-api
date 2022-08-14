@@ -13,7 +13,8 @@ module.exports = {
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       password: {
         type: DataTypes.STRING,
@@ -22,6 +23,7 @@ module.exports = {
       user_id: {
         type: DataTypes.UUID,
         allowNull: false,
+        unique: true,
         references: {
           model: {
             tableName: 'user',

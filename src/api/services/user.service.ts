@@ -16,21 +16,23 @@ export function register(params: FormRegister): Promise<boolean> {
       const isEmailExist = await loginRepository.isEmailExist(params.email);
       if (isEmailExist) {
         reject('Email exists');
+        return;
+      } else {
+        const hashedPassword = await bcrypt.hashSync(params.password, 5);
+        const registerUser = await userRepository.create({
+          first_name: params.first_name,
+          last_name: params.last_name
+        });
+        const registerlogin = await loginRepository.create({
+          email: params.email,
+          password: hashedPassword,
+          user_id: registerUser?.getDataValue('id')
+        });
+        if (!registerlogin) {
+          reject('Failed to register');
+        }
+        resolve(registerlogin);
       }
-      const hashedPassword = await bcrypt.hashSync(params.password, 5);
-      const registerUser = await userRepository.create({
-        first_name: params.first_name,
-        last_name: params.last_name
-      });
-      const registerlogin = await loginRepository.create({
-        email: params.email,
-        password: hashedPassword,
-        user_id: registerUser?.getDataValue('id')
-      });
-      if (!registerlogin) {
-        reject('Failed to register');
-      }
-      resolve(registerlogin);
     } catch (err) {
       reject(err);
     }
