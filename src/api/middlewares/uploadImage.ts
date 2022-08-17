@@ -25,6 +25,7 @@ class UploadImage {
         cb: (error: Error | null, destination: string) => void
       ) => {
         //Verifica se não existe o diretório
+        console.log(this.URL);
         if (!fs.existsSync(this.URL)) {
           //Efetua a criação do diretório caso ele não exista
           fs.mkdirSync(this.URL);

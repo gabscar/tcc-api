@@ -7,7 +7,7 @@ const route: Router = Router();
 
 route.post(
   '/radiography',
-  [authorization, multer(uploadImage.getConfig).single('file')],
+  [multer(uploadImage.getConfig).single('file')],
   uploadRadiography
 );
 export default route;

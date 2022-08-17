@@ -38,10 +38,13 @@
 
       #original-image {
         width: 1600px;
+        max-width: 100vw;
+        max-height: 2600px;
       }
 
       #detected-image {
-        width: 2000px;
+        max-width: 100vw;
+        max-height: 2600px;
       }
 
       #controls {
@@ -64,19 +67,39 @@
       button:hover {
         text-decoration: underline;
       }
-
+      #myFile {
+        margin-left: 30px;
+      }
       #detect {
         margin-right: 0.5rem;
       }
       #next {
         margin-left: 0.5rem;
       }
+      #controls {
+        padding: 1rem;
+        background-color: #b1b1b1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width: 100vw;
+      }
     </style>
   </head>
   <body>
     <div id="controls">
-      <button id="detect">Detect Objects</button>
-      <button id="next">Next Image</button>
+      <div>
+        <button id="detect">Detect Objects</button>
+        <button id="next">Next Image</button>
+      </div>
+
+      <div>
+        <input type="file" id="myFile" accept="image/*" />
+
+        <input type="submit" value="enviar" id="upload_image" />
+      </div>
     </div>
     <div id="images">
       <div id="left">
@@ -95,20 +118,20 @@
         let images = [];
         let index = 0;
         let getUrl = window.location;
-        fetch(`${getUrl}image/images`)
+        fetch(`${getUrl}/image/images`)
           .then((response) => {
             return response.json();
           })
           .then((data) => {
             images = data;
-            original.setAttribute('src', `${getUrl}image/images/` + images[0]);
+            original.setAttribute('src', `${getUrl}/image/images/` + images[0]);
           });
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
           detected.setAttribute(
             'src',
-            `${getUrl}image/detect/` + images[index]
+            `${getUrl}/image/detect/` + images[index]
           );
         });
 
@@ -117,10 +140,27 @@
           index += 1;
           original.setAttribute(
             'src',
-            `${getUrl}image/images/` + images[index]
+            `${getUrl}/image/images/` + images[index]
           );
           detected.setAttribute('src', '');
         });
+        var fileSelect = document.getElementById('myFile');
+        const submit = document.getElementById('upload_image');
+
+        submit.addEventListener(
+          'click',
+          async function (e) {
+            const formData = new FormData();
+            formData.append('file', fileSelect.files[0]);
+
+            const response = await fetch(`${getUrl}/upload/radiography`, {
+              method: 'POST',
+              body: formData
+            });
+            e.preventDefault(); // prevent navigation to "#"
+          },
+          false
+        );
       });
     </script>
   </body>
