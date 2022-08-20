@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { IRelation } from 'api/interfaces/relation';
-import { IUseCaseOptions } from 'api/interfaces/useCaseOptions';
-import { IWhere } from 'api/helpers';
+import { IRelation } from '../../interfaces/relation';
+import { IUseCaseOptions } from '../../interfaces/useCaseOptions';
+import { IWhere } from '../../helpers';
 import { Op, FindOptions } from 'sequelize';
 
 interface IInputFindByOptions<E>
