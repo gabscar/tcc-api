@@ -21,6 +21,10 @@ async def download():
     await loop.run_in_executor(_executor, sync_blocking)
 
 if os.path.isfile("yolov3.weights"):
+    os.remove(cwd+'/yolov3.weights')
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(download())
+    loop.close()
     print('baixado')
 else:
     loop = asyncio.get_event_loop()
