@@ -20,8 +20,8 @@ class UploadImage {
     return multer.diskStorage({
       //Criar o destino do arquivo
       destination: (
-        req: Request,
-        file: Express.Multer.File,
+        _req: Request,
+        _file: Express.Multer.File,
         cb: (error: Error | null, destination: string) => void
       ) => {
         //Verifica se não existe o diretório
@@ -35,7 +35,7 @@ class UploadImage {
       },
       //Renomeia o arquivo
       filename: (
-        req: Request,
+        _req: Request,
         file: Express.Multer.File,
         cb: (error: Error | null, destination: string) => void
       ) => {
@@ -57,7 +57,7 @@ class UploadImage {
       1 - A validação do arquivo
     */
     return (
-      req: Request,
+      _req: Request,
       file: Express.Multer.File,
       cb: multer.FileFilterCallback
     ) => {

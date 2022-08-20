@@ -1,4 +1,5 @@
-import { emailRegex, FormLogin } from '../interfaces';
+import { FormLogin } from 'api/interfaces/Login/loginInterfaces';
+import { emailRegex } from '../interfaces';
 
 export function login(params: FormLogin): boolean {
   const { email, password } = params;

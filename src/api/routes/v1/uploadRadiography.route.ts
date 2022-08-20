@@ -1,4 +1,4 @@
-import { authorization, uploadImage } from '../../middlewares';
+import { uploadImage } from '../../middlewares';
 import { Router } from 'express';
 import * as multer from 'multer';
 import { uploadRadiography } from '../../controllers';

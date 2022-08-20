@@ -50,7 +50,7 @@ describe('Auth API checks', () => {
     }
     request(app)
       .get(`/${API}/auth`)
-      .set('x-authorization', token)
+      .set('authorization', token)
       .expect(200)
       .then((response: any) => {
         id = response.body.payload.id;

@@ -8,7 +8,12 @@
     "sourceMap": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
     "strict": true,
     "baseUrl": "src",
     "typeRoots": ["node_modules/@types", "./src/@types/index.d.ts"]

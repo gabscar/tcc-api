@@ -1,12 +1,34 @@
 import { User } from '../models';
-import { RegisterUser } from '../interfaces';
-
+import { IUpdateUser, RegisterUser } from '../interfaces/User/userInterface';
+import { Transaction } from 'sequelize';
+import { Op } from 'sequelize';
+import { unnestWheres } from './utillity/repositoryUtils';
 export async function create(data: RegisterUser): Promise<User | void> {
   return new Promise(async (resolve, reject) => {
     const user = await User.create(data).catch((err) => {
       reject(err);
     });
     resolve(user);
+  });
+}
+
+export async function update(
+  input: IUpdateUser,
+  transaction?: Transaction
+): Promise<User> {
+  return new Promise(async (resolve, reject) => {
+    const userResult = await User.update(input.newData, {
+      where: {
+        [Op.and]: [...input.updateWhere.map((where) => unnestWheres(where))]
+      },
+      transaction
+    }).catch((err) => {
+      reject(err);
+    });
+    if (userResult && userResult[0] === 0) {
+      reject('Erro ao atualizar usuário');
+    }
+    resolve(input.newData as User);
   });
 }
 
