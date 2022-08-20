@@ -26,8 +26,8 @@ export async function detection(req: Request, res: Response): Promise<void> {
       fs.readFile(params.outputFilePath, function (err: any, data: any) {
         if (err) throw err; // Fail if the file can't be read.
         console.log('Data:', data);
-        res.writeHead(200, { 'Content-Type': 'image/jpeg' });
-        res.end(data); // Send the file data to the browser.
+        // res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+        res.sendFile(params.outputFilePath); // Send the file data to the browser.
       });
     } else res.status(403).send({ message: 'detection failed' });
   });
