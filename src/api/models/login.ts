@@ -1,8 +1,9 @@
 import { db } from '../../config/database';
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import User from './user';
+import { ILoginEntity } from '../entities/loginEntity';
 
-export default class Login extends Model {}
+export default class Login extends Model<ILoginEntity> {}
 Login.init(
   {
     id: {
@@ -33,6 +34,11 @@ Login.init(
       allowNull: false
     },
     created_at: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.fn('now'),
+      allowNull: false
+    },
+    updated_at: {
       type: DataTypes.DATE,
       defaultValue: Sequelize.fn('now'),
       allowNull: false

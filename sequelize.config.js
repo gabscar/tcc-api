@@ -9,12 +9,7 @@ const config = {
   port: process.env.DB_PORT,
   dialect: 'postgres',
   logging: true,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false
-    }
-  }
+  dialectOptions: {}
 };
 
 module.exports = config;

@@ -1,7 +1,7 @@
 import * as express from 'express';
-import * as compression from 'compression';
-import * as cors from 'cors';
 import * as swaggerUi from 'swagger-ui-express';
+const compression = require('compression');
+const cors = require('cors');
 import routes from '../api/routes/v1';
 import { morganMiddleware } from '../api/middlewares';
 import { Application } from 'express';

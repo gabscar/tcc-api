@@ -1,7 +1,12 @@
 import { Login } from '../models';
-import { RegisterLogin } from '../interfaces';
+import { ILoginEntity } from 'api/entities/loginEntity';
+import { Op, Transaction } from 'sequelize';
+import { unnestWheres } from './utillity/repositoryUtils';
+import { IUpdateLogin } from '../interfaces/Login/loginInterfaces';
 
-export async function isEmailExist(email: string): Promise<boolean> {
+export async function isEmailExist(
+  email: string
+): Promise<ILoginEntity | void> {
   return new Promise(async (resolve, reject) => {
     const login = await Login.findOne({
       where: {
@@ -12,21 +17,45 @@ export async function isEmailExist(email: string): Promise<boolean> {
     });
 
     if (!login) {
-      resolve(false);
+      resolve(void 0);
+    } else {
+      resolve(login.get({ plain: true }));
     }
-    resolve(true);
   });
 }
 
-export async function create(data: RegisterLogin): Promise<boolean> {
+export async function update(
+  input: IUpdateLogin,
+  transaction?: Transaction
+): Promise<ILoginEntity> {
+  return new Promise(async (resolve, reject) => {
+    const userResult = await Login.update(input.newData, {
+      where: {
+        [Op.and]: [...input.updateWhere.map((where) => unnestWheres(where))]
+      },
+      transaction
+    }).catch((err) => {
+      reject(err);
+    });
+    if (userResult && userResult[0] === 0) {
+      reject('Erro ao atualizar usuário');
+    }
+    resolve(input.newData as ILoginEntity);
+  });
+}
+
+export async function create(
+  data: ILoginEntity
+): Promise<ILoginEntity | boolean> {
   return new Promise(async (resolve, reject) => {
     const login = await Login.create(data).catch((err) => {
       reject(err);
     });
     if (!login) {
       resolve(false);
+    } else {
+      resolve(login as unknown as ILoginEntity);
     }
-    resolve(true);
   });
 }
 
