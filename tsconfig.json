@@ -8,24 +8,12 @@
     "sourceMap": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": true,
-    "resolveJsonModule": true,
+
     "strict": true,
     "baseUrl": "src",
     "typeRoots": ["node_modules/@types", "./src/@types/index.d.ts"]
   },
   "include": ["src"],
   "assets": ["src/images/*", "src/pubic/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"],
-  "paths": {
-    "@controllers/*": ["./src/api/controllers/*"],
-    "@models/*": ["./src/api/models/*"],
-    "@config/*": ["./src/config/*"],
-    "@api/*": ["./src/api/*"],
-    "@test/*": ["./test/*"]
-  }
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
