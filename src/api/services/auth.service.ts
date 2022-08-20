@@ -1,8 +1,9 @@
 import { Login } from '../models';
 import { loginRepository } from '../repositories';
-import { FormLogin, Token } from '../interfaces';
+import { Token } from '../interfaces';
 import { signToken } from '../helpers/token';
 import * as bcrypt from 'bcrypt';
+import { FormLogin } from 'api/interfaces/Login/loginInterfaces';
 
 export function getMeta(params: { userdata: string }): Promise<Login | null> {
   return new Promise(async (resolve) => {
@@ -17,19 +18,22 @@ export function login(params: FormLogin): Promise<Token> {
       const login: Login | null = await loginRepository.findOne(params.email);
       if (!login) {
         reject('Email is not exists');
+        return;
       }
       const isValid = await bcrypt.compareSync(
         params.password,
-        login?.getDataValue('password')
+        login!.getDataValue('password')
       );
 
       if (!isValid) {
         reject('Invalid password');
+        return;
       }
       const expires = '1d';
       const token = await signToken(params.email, expires);
       if (!token) {
         reject('Invalid token');
+        return;
       }
       resolve({
         token: `Bearer ${token}`,
