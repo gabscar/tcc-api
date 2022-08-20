@@ -25,6 +25,7 @@ if os.path.isfile("yolov3.weights"):
 else:
     loop = asyncio.get_event_loop()
     loop.run_until_complete(download())
+    print('finished')
     loop.close()
 # https://github.com/gabscar/tcc-api/raw/main/src/api/services/yolo_object_detection/yolov3.weights
 WEIGHTS_FILE = "yolov3.weights"
