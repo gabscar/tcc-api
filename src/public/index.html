@@ -86,6 +86,48 @@
         gap: 10px;
         width: 100vw;
       }
+      #loading {
+        width: 2rem;
+        height: 2rem;
+        border: 5px solid #f3f3f3;
+        border-top: 6px solid #9c41f2;
+        border-radius: 100%;
+        margin: auto;
+        visibility: hidden;
+        animation: spin 1s infinite linear;
+      }
+      #loading.display {
+        visibility: visible;
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      #loading1 {
+        width: 2rem;
+        height: 2rem;
+        border: 5px solid #f3f3f3;
+        border-top: 6px solid #9c41f2;
+        border-radius: 100%;
+        margin: auto;
+        visibility: hidden;
+        animation: spin 1s infinite linear;
+      }
+      #loading1.display {
+        visibility: visible;
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
     </style>
   </head>
   <body>
@@ -99,6 +141,7 @@
         <input type="file" id="myFile" accept="image/*" />
 
         <input type="submit" value="enviar" id="upload_image" />
+        <div id="loading"></div>
       </div>
     </div>
     <div id="images">
@@ -112,6 +155,15 @@
     </div>
 
     <script>
+      const loader = document.querySelector('#loading');
+
+      function displayLoading() {
+        loader.classList.add('display');
+        // to stop loading after some time
+        setTimeout(() => {
+          loader.classList.remove('display');
+        }, 5000);
+      }
       document.addEventListener('DOMContentLoaded', (e) => {
         let original = document.getElementById('original-image');
         let detected = document.getElementById('detected-image');
@@ -129,6 +181,7 @@
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
+          displayLoading();
           detected.setAttribute(
             'src',
             `${getUrl}/image/detect/` + images[index]
@@ -150,9 +203,9 @@
         submit.addEventListener(
           'click',
           async function (e) {
+            displayLoading();
             const formData = new FormData();
             formData.append('file', fileSelect.files[0]);
-
             const response = await fetch(`${getUrl}/upload/radiography`, {
               method: 'POST',
               body: formData
