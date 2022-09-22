@@ -19,7 +19,7 @@
     "import/extensions": "off",
     "camelcase": "off",
     "prettier/prettier": "error",
-    "import/no-unresolved": "error",
+    "import/no-unresolved": [2, { "caseSensitive": false }],
     "@typescript-eslint/naming-convention": [
       "error",
       {

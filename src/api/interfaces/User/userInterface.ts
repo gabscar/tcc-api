@@ -1,4 +1,4 @@
-import { IUserEntity } from '@api/entities/userEntity';
+import { IUserEntity } from 'api/entities/userEntity';
 import { IUpdate } from '../update';
 
 export interface RegisterUser {

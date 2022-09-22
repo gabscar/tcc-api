@@ -13,7 +13,8 @@
     "build-watch": "tsc -w",
     "lint": "eslint . --ext .ts",
     "prettier-format": "prettier --config .prettierrc --write .",
-    "test": "nyc mocha --check-leaks -r dotenv/config -r ts-node/register '**/**/*.spec.ts'",
+    "pretest": "NODE_ENV=test sequelize db:migrate:undo:all && NODE_ENV=test sequelize db:drop && NODE_ENV=test sequelize db:create && NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test nyc mocha --check-leaks -r dotenv/config -r ts-node/register '**/**/*.spec.ts'",
     "coverage": "nyc npm run test",
     "sql": "sequelize-cli"
   },

@@ -25,6 +25,11 @@ User.init(
       defaultValue: Sequelize.fn('now'),
       allowNull: false
     },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: Sequelize.fn('now'),
+      allowNull: false
+    },
     created_by: {
       type: DataTypes.STRING,
       defaultValue: 'system',

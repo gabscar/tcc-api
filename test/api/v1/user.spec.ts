@@ -30,6 +30,17 @@ describe('Auth API checks', () => {
       })
       .expect(200, done);
   });
+  it('Could not register user if is alread been registred', (done) => {
+    request(app)
+      .post(`/${API}/user/register`)
+      .send({
+        email: email,
+        password: password,
+        first_name: 'Miftahul',
+        last_name: 'Arifin'
+      })
+      .expect(200, done);
+  });
   it('Check login user', (done) => {
     request(app)
       .post(`/${API}/auth/login`)
@@ -71,6 +82,17 @@ describe('Auth API checks', () => {
       .set('authorization', token)
       .send({
         id: id
+      })
+      .expect(200, done);
+  });
+  it('Activate User Acount if is inactivated', (done) => {
+    request(app)
+      .post(`/${API}/user/register`)
+      .send({
+        email: email,
+        password: password,
+        first_name: 'Miftahul',
+        last_name: 'Arifin'
       })
       .expect(200, done);
   });

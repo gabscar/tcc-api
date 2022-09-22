@@ -5,7 +5,11 @@ import { Op } from 'sequelize';
 import { unnestWheres } from './utillity/repositoryUtils';
 export async function create(data: RegisterUser): Promise<User | void> {
   return new Promise(async (resolve, reject) => {
-    const user = await User.create(data).catch((err) => {
+    const user = await User.create({
+      ...data,
+      updated_at: new Date(),
+      created_at: new Date()
+    }).catch((err) => {
       reject(err);
     });
     resolve(user);

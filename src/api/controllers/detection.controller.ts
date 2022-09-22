@@ -11,6 +11,7 @@ export async function detection(req: Request, res: Response): Promise<void> {
     inputFilePath: appDir + '/images/original_images/' + req.params.image,
     outputFilePath: appDir + '/images/detected_images/' + req.params.image
   };
+  console.log(params);
 
   const yoloProcess = spawn('python3', [
     script,
