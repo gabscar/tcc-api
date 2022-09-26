@@ -1,4 +1,4 @@
-import { IWhere } from '@api/helpers';
+import { IWhere } from '../helpers';
 
 export interface IUpdate<K, V, E> {
   updateWhere: IWhere<keyof K, V>[];

@@ -1,4 +1,4 @@
-import { IWhere } from '@api/helpers';
+import { IWhere } from '../helpers';
 
 export interface IRelation<
   TN = string,
