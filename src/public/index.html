@@ -170,6 +170,7 @@
         let images = [];
         let index = 0;
         let getUrl = window.location;
+        displayLoading();
         fetch(`${getUrl}/image/images`)
           .then((response) => {
             return response.json();
@@ -182,10 +183,8 @@
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
+          displayLoading();
           fetch(`${getUrl}/image/detect/` + images[index])
-            .then((response) => {
-              return response.json();
-            })
             .then((data) => {
               detected.setAttribute(
                 'src',
