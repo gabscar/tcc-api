@@ -182,11 +182,17 @@
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
-          displayLoading();
-          detected.setAttribute(
-            'src',
-            `${getUrl}/image/detect/` + images[index]
-          );
+          fetch(`${getUrl}/image/detect/` + images[index])
+            .then((response) => {
+              return response.json();
+            })
+            .then((data) => {
+              detected.setAttribute(
+                'src',
+                `${getUrl}/image/detect/` + images[index]
+              );
+            })
+            .finally(() => hideDisplayLoading());
         });
 
         let nextButton = document.getElementById('next');
