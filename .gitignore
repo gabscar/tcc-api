@@ -3,3 +3,4 @@ node_modules
 logs
 .nyc_output
 dist
+yolov3.weights

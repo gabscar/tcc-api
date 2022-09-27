@@ -164,6 +164,9 @@
           loader.classList.remove('display');
         }, 5000);
       }
+      function hideDisplayLoading() {
+        loader.classList.remove('display');
+      }
       document.addEventListener('DOMContentLoaded', (e) => {
         let original = document.getElementById('original-image');
         let detected = document.getElementById('detected-image');
@@ -177,7 +180,8 @@
           .then((data) => {
             images = data;
             original.setAttribute('src', `${getUrl}/image/images/` + images[0]);
-          });
+          })
+          .finally(() => hideDisplayLoading());
 
         let detectButton = document.getElementById('detect');
         detectButton.addEventListener('click', (e) => {
@@ -209,7 +213,7 @@
             const response = await fetch(`${getUrl}/upload/radiography`, {
               method: 'POST',
               body: formData
-            });
+            }).finally(() => hideDisplayLoading());
             e.preventDefault(); // prevent navigation to "#"
           },
           false
