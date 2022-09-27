@@ -2,13 +2,15 @@ const request = require('supertest');
 import { createServer } from '../../../src/server';
 import { API } from '../../../src/constants';
 import { expect } from 'chai';
-
+import { loginRepository } from '../../../src/api/repositories';
+const sinon = require('sinon');
 const app = createServer();
 let token: string;
 let id: string;
+let user_id: string;
 const email = 'test1@gmail.com';
 const password = '12345';
-
+// const faker = require('faker');
 describe('Auth API checks', () => {
   let server: any;
 
@@ -39,7 +41,7 @@ describe('Auth API checks', () => {
         first_name: 'Miftahul',
         last_name: 'Arifin'
       })
-      .expect(200, done);
+      .expect(400, done);
   });
   it('Check login user', (done) => {
     request(app)
@@ -64,7 +66,9 @@ describe('Auth API checks', () => {
       .set('authorization', token)
       .expect(200)
       .then((response: any) => {
+        console.log(response);
         id = response.body.payload.id;
+        user_id = response.body.payload.user_id;
         done();
       });
   });
@@ -95,5 +99,25 @@ describe('Auth API checks', () => {
         last_name: 'Arifin'
       })
       .expect(200, done);
+  });
+  it('not Activate User Acount if is inactivated', (done) => {
+    sinon
+      .stub(loginRepository, 'isEmailExist')
+      .returns({ id, user_id, is_active: false });
+    const stub = sinon.stub(loginRepository, 'update').returns(void 0);
+    loginRepository.update({
+      updateWhere: [{ column: 'id', value: id }],
+      newData: { is_active: true }
+    });
+    request(app)
+      .post(`/${API}/user/register`)
+      .send({
+        email: email,
+        password: password,
+        first_name: 'Miftahul',
+        last_name: 'Arifin'
+      })
+      .expect(400, done);
+    expect(stub.calledOnce).to.be.true;
   });
 });
