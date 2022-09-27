@@ -43,6 +43,24 @@ describe('Auth API checks', () => {
         done();
       });
   });
+  it('not realize login if password is wrong', (done) => {
+    request(app)
+      .post(`/${API}/auth/login`)
+      .send({
+        email: email,
+        password: '123'
+      })
+      .expect(400, done);
+  });
+  it('not realize login if email not exists', (done) => {
+    request(app)
+      .post(`/${API}/auth/login`)
+      .send({
+        email: 'test@mail.com',
+        password: password
+      })
+      .expect(400, done);
+  });
   it('Check auth information', (done) => {
     if (!token) {
       expect(token).to.be.not.undefined;
@@ -56,6 +74,24 @@ describe('Auth API checks', () => {
         id = response.body.payload.id;
         done();
       });
+  });
+  it('not check auth information if barrer is not provider', (done) => {
+    if (!token) {
+      expect(token).to.be.not.undefined;
+      done();
+    }
+    request(app).get(`/${API}/auth`).set('authorization', '').expect(401, done);
+  });
+
+  it('not check auth information if token is not valid', (done) => {
+    if (!token) {
+      expect(token).to.be.not.undefined;
+      done();
+    }
+    request(app)
+      .get(`/${API}/auth`)
+      .set('authorization', `${token}1`)
+      .expect(401, done);
   });
   it('Check remove account', (done) => {
     if (!id) {
@@ -73,5 +109,16 @@ describe('Auth API checks', () => {
         id: id
       })
       .expect(200, done);
+  });
+
+  it('not check auth information if user is not founded', (done) => {
+    if (!token) {
+      expect(token).to.be.not.undefined;
+      done();
+    }
+    request(app)
+      .get(`/${API}/auth`)
+      .set('authorization', `${token}`)
+      .expect(401, done);
   });
 });

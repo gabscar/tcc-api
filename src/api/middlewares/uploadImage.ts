@@ -5,8 +5,10 @@ import * as mime from 'mime-types';
 import { Request } from 'express-serve-static-core';
 
 class UploadImage {
-  private URL: string = `${path.dirname(
-    require.main?.filename as string
+  private URL: string = `${path.join(
+    __dirname,
+    '..',
+    '..'
   )}/images/original_images`;
 
   constructor() {}

@@ -3,6 +3,7 @@ import { User } from '../models';
 import { loginRepository, userRepository } from '../repositories';
 import * as bcrypt from 'bcrypt';
 import { ILoginEntity } from 'api/entities/loginEntity';
+import { db } from '../../config/database';
 
 export function findAll(): Promise<User[]> {
   return new Promise(async (resolve) => {
@@ -11,29 +12,38 @@ export function findAll(): Promise<User[]> {
   });
 }
 
-export function register(
+export async function register(
   params: FormRegister
 ): Promise<ILoginEntity | boolean> {
+  const transaction = await db.transaction();
+
   return new Promise(async (resolve, reject) => {
     try {
       const isEmailExist = await loginRepository.isEmailExist(params.email);
       if (isEmailExist && !isEmailExist.is_active) {
         const hashedPassword = await bcrypt.hashSync(params.password, 5);
-        const updateUser = await userRepository.update({
-          updateWhere: [{ column: 'id', value: isEmailExist.user_id }],
-          newData: { is_active: true }
-        });
+        const updateUser = await userRepository.update(
+          {
+            updateWhere: [{ column: 'id', value: isEmailExist.user_id }],
+            newData: { is_active: true }
+          },
+          transaction
+        );
 
-        const updateLogin = await loginRepository.update({
-          updateWhere: [{ column: 'email', value: isEmailExist.email }],
-          newData: { is_active: true, password: hashedPassword }
-        });
+        const updateLogin = await loginRepository.update(
+          {
+            updateWhere: [{ column: 'email', value: isEmailExist.email }],
+            newData: { is_active: true, password: hashedPassword }
+          },
+          transaction
+        );
         if (!updateLogin || !updateUser) {
+          await transaction.rollback();
           reject(
             'Falha ao Reativar sua conta entre em contato com os administradores'
           );
-          return;
         } else {
+          await transaction.commit();
           resolve(true);
         }
       } else if (!isEmailExist) {
@@ -61,6 +71,9 @@ export function register(
         reject('Email já está em uso');
       }
     } catch (err) {
+      if (transaction) {
+        await transaction.rollback();
+      }
       reject(err);
     }
   });

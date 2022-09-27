@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 const { spawn } = require('child_process');
-const { dirname } = require('path');
+import * as path from 'path';
+
 const fs = require('fs');
 
-const appDir = dirname(require.main?.filename);
+const appDir = `${path.join(__dirname, '..', '..')}`;
 const script = appDir + '/api/services/yolo_object_detection/yolo.py';
 
 export async function detection(req: Request, res: Response): Promise<void> {
