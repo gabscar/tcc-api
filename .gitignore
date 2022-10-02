@@ -4,3 +4,4 @@ logs
 .nyc_output
 dist
 yolov3.weights
+yolov4.weights
