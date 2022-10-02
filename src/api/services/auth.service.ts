@@ -1,13 +1,17 @@
-import { Login } from '../models';
 import { loginRepository } from '../repositories';
 import { Token } from '../interfaces';
 import { signToken } from '../helpers/token';
 import * as bcrypt from 'bcrypt';
 import { FormLogin } from 'api/interfaces/Login/loginInterfaces';
+import { ILoginEntity } from 'api/entities/loginEntity';
 
-export function getMeta(params: { userdata: string }): Promise<Login | null> {
+export function getMeta(params: {
+  userdata: string;
+}): Promise<ILoginEntity | null> {
   return new Promise(async (resolve) => {
-    const login: Login | null = await loginRepository.getMeta(params.userdata);
+    const login: ILoginEntity | null = await loginRepository.getMeta(
+      params.userdata
+    );
     resolve(login);
   });
 }
@@ -15,15 +19,14 @@ export function getMeta(params: { userdata: string }): Promise<Login | null> {
 export function login(params: FormLogin): Promise<Token> {
   return new Promise(async (resolve, reject) => {
     try {
-      const login: Login | null = await loginRepository.findOne(params.email);
+      const login: ILoginEntity | null = await loginRepository.findOne(
+        params.email
+      );
       if (!login) {
         reject('Email is not exists');
         return;
       }
-      const isValid = await bcrypt.compareSync(
-        params.password,
-        login!.getDataValue('password')
-      );
+      const isValid = await bcrypt.compareSync(params.password, login.password);
 
       if (!isValid) {
         reject('Invalid password');

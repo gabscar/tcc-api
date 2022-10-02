@@ -40,7 +40,7 @@ export default async function authorization(
       });
       return;
     }
-    req.params.userdata = userdata?.getDataValue('email');
+    req.params.userdata = userdata.email;
 
     next();
   });
