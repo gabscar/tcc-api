@@ -9,7 +9,7 @@ _executor = ThreadPoolExecutor(1)
 
 
 def sync_blocking():
-    urllib.request.urlretrieve("https://github.com/gabscar/tcc-api/raw/main/src/api/services/yolo_object_detection/yolov3.weights", "yolov3.weights")
+    urllib.request.urlretrieve("https://github.com/gabscar/tcc-api/raw/dev/src/api/services/yolo_object_detection/yolov4.weights", "yolov4.weights")
 
 
 async def download(loop):
@@ -22,15 +22,15 @@ def main():
     input_path = sys.argv[1]
     output_path = sys.argv[2]
     cwd = os.path.dirname(os.path.realpath(__file__)) + "/"
-    if os.path.isfile("yolov3.weights"):
+    if os.path.isfile("yolov4.weights"):
         print('baixado')
     else:
         loop = asyncio.get_event_loop()
         loop.run_until_complete(download(loop))
         loop.close()
 
-    WEIGHTS_FILE = "yolov3.weights"
-    CONFIG_FILE = cwd + "yolov3.cfg"
+    WEIGHTS_FILE = "yolov4.weights"
+    CONFIG_FILE = cwd + "yolov4.cfg"
     CLASSES_FILE = cwd + "coco.names"
     sys.stdout.flush()
     net = cv2.dnn.readNet(WEIGHTS_FILE,CONFIG_FILE)
